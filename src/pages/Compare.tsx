@@ -115,7 +115,10 @@ const Compare = () => {
                   </Select>
                 </div>
                 <div className="flex items-end">
-                  <Button>
+                  <Button onClick={() => {
+                    // Trigger data analysis based on selected types and time range
+                    console.log('Analyzing data for:', selectedTypes, 'in time range:', timeRange);
+                  }}>
                     <BarChart3 className="mr-2 h-4 w-4" />
                     Analiz Et
                   </Button>

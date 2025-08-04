@@ -75,13 +75,16 @@ export const Footer = () => {
             <p className="text-sm text-muted-foreground">
               © 2024 zamanlayalim.com. Tüm hakları saklıdır.
             </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6">
+              <Link to="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 Gizlilik Politikası
-              </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              </Link>
+              <Link to="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 Kullanım Koşulları
-              </a>
+              </Link>
+              <span className="text-sm text-muted-foreground">
+                SHAZ WEB - berkaysahin.com
+              </span>
             </div>
           </div>
         </div>
