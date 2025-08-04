@@ -9,7 +9,7 @@ const navigation = [
   { name: "Ana Sayfa", href: "/" },
   { name: "Karşılaştır", href: "/compare" },
   { name: "Hakkında", href: "/about" },
-  { name: "Güncellemeler", href: "/blog" },
+  { name: "Blog", href: "/blog" },
 ];
 
 export const Header = () => {
