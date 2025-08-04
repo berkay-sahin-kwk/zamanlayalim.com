@@ -5,10 +5,10 @@ import { PurchasingPowerResult } from "@/components/analysis/PurchasingPowerResu
 import financialAnalysisHero from "@/assets/financial-analysis-hero.jpg";
 
 const Compare = () => {
-  const [analysisData, setAnalysisData] = useState<{ year: string; amount: number } | null>(null);
+  const [analysisData, setAnalysisData] = useState<{ year: string; amount: number; category: string } | null>(null);
 
-  const handleAnalyze = (year: string, amount: number) => {
-    setAnalysisData({ year, amount });
+  const handleAnalyze = (year: string, amount: number, category: string) => {
+    setAnalysisData({ year, amount, category });
   };
 
   return (
@@ -46,6 +46,7 @@ const Compare = () => {
             <PurchasingPowerResult 
               year={analysisData.year} 
               amount={analysisData.amount}
+              category={analysisData.category}
             />
           )}
 

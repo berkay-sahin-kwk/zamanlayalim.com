@@ -4,25 +4,35 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calculator, Calendar, Sparkles } from "lucide-react";
+import { Calculator, Calendar, Sparkles, Tag } from "lucide-react";
 import timeAnalysisIcon from "@/assets/time-analysis-icon.jpg";
 
 interface YearSelectorProps {
-  onAnalyze: (year: string, amount: number) => void;
+  onAnalyze: (year: string, amount: number, category: string) => void;
 }
 
 export const YearSelector = ({ onAnalyze }: YearSelectorProps) => {
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [amount, setAmount] = useState<string>("200");
+  const [selectedCategory, setSelectedCategory] = useState<string>("gida");
 
   const years = [];
   for (let year = 2000; year <= 2024; year++) {
     years.push(year.toString());
   }
 
+  const categories = [
+    { id: "gida", label: "Gıda & İçecek", emoji: "🍞" },
+    { id: "ulasim", label: "Ulaşım", emoji: "🚗" },
+    { id: "eglence", label: "Eğlence", emoji: "🎬" },
+    { id: "giyim", label: "Giyim", emoji: "👕" },
+    { id: "teknoloji", label: "Teknoloji", emoji: "📱" },
+    { id: "ev", label: "Ev & Yaşam", emoji: "🏠" },
+  ];
+
   const handleAnalyze = () => {
-    if (selectedYear && amount) {
-      onAnalyze(selectedYear, parseFloat(amount));
+    if (selectedYear && amount && selectedCategory) {
+      onAnalyze(selectedYear, parseFloat(amount), selectedCategory);
     }
   };
 
@@ -55,7 +65,30 @@ export const YearSelector = ({ onAnalyze }: YearSelectorProps) => {
         </CardHeader>
         
         <CardContent className="space-y-6 pt-0">
-          {/* Data Type Selection */}
+          {/* Category Selection */}
+          <div className="space-y-3">
+            <Label htmlFor="category" className="text-sm font-semibold flex items-center gap-2">
+              <Tag className="h-4 w-4 text-primary" />
+              Kategori Seçin
+            </Label>
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="h-12 border-2 transition-all duration-200 hover:border-primary/30 focus:border-primary">
+                <SelectValue placeholder="Bir kategori seçin" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((category) => (
+                  <SelectItem key={category.id} value={category.id} className="hover:bg-primary/5">
+                    <div className="flex items-center gap-2">
+                      <span>{category.emoji}</span>
+                      <span>{category.label}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Year Selection */}
           <div className="space-y-3">
             <Label htmlFor="year" className="text-sm font-semibold flex items-center gap-2">
               <Calendar className="h-4 w-4 text-primary" />
@@ -94,7 +127,7 @@ export const YearSelector = ({ onAnalyze }: YearSelectorProps) => {
           <Button 
             onClick={handleAnalyze} 
             className="w-full h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25" 
-            disabled={!selectedYear || !amount}
+            disabled={!selectedYear || !amount || !selectedCategory}
           >
             <Calendar className="mr-2 h-5 w-5" />
             Analiz Et
